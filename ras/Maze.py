@@ -9,11 +9,6 @@ from time import sleep
 speed = 15
 
 
-def make_speed_zero():
-    LeftPwm.ChangeDutyCycle(0)
-    RightPwm.ChangeDutyCycle(0)
-
-
 def lineTrace():
     go_forward_nosleep(speed)
     while True:
@@ -43,32 +38,45 @@ def lineTrace():
 def mazeSearch(led_list):
     try:
         if led_list[0] and led_list[1] and led_list[2] and led_list[3] and led_list[4]:
-            make_speed_zero()
+            stop()
             go_forward(30, 0.4)
             doing_U_turn()
             return
 
         if (led_list[0] and led_list[1]) and not (led_list[2] and led_list[3] and led_list[4]):
-            make_speed_zero()
+            stop()
             go_forward(30, 0.4)
-            while led_list[3]:
-                rightPointTurn(30, 0.05)
+            while True:
+                led_list = track()
+                while led_list[3]:
+                    rightPointTurn(30, 0.5)
+                else:
+                    return
             return  # 오른쪽만 있는 교차로
         elif (led_list[3] and led_list[4]) and not (led_list[0] and led_list[1] and led_list[2]):
-            make_speed_zero()
+            stop()
             go_forward(30, 0.4)
-            while led_list[1]:
-                leftPointTurn(30, 0.05)
+            while True:
+                led_list = track()
+                while led_list[1]:
+                    leftPointTurn(30, 0.5)
+                else:
+                    return
             return  # 왼쪽만 있는 교차로
         elif not (led_list[0] and led_list[1] and led_list[2] and led_list[3] and led_list[4]):
-            make_speed_zero()
+            stop()
             go_forward(30, 0.4)
-            while led_list[3]:
-                rightPointTurn(30, 0.05)
+            while True:
+                led_list = track()
+                while led_list[3]:
+                    rightPointTurn(30, 0.5)
+                else:
+                    return
             return  # 양갈래길 교차로
+
     except KeyboardInterrupt:
-        stop()
-        GPIO.cleanup()
+        stopCar()
+    GPIO.cleanup()
 
 
 def doing_U_turn():
@@ -80,6 +88,7 @@ def doing_U_turn():
                 rightPointTurn(30, 0.05)
             else:
                 return
+
     except KeyboardInterrupt:
         stop()
         GPIO.cleanup()
