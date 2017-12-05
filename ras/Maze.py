@@ -48,7 +48,7 @@ def mazeSearch(led_list):
             go_forward(30, 0.4)
             while True:
                 led_list = track()
-                while led_list[3]:
+                if led_list[3]:
                     rightPointTurn(30, 0.5)
                 else:
                     return
@@ -58,7 +58,7 @@ def mazeSearch(led_list):
             go_forward(30, 0.4)
             while True:
                 led_list = track()
-                while led_list[1]:
+                if led_list[1]:
                     leftPointTurn(30, 0.5)
                 else:
                     return
@@ -68,7 +68,7 @@ def mazeSearch(led_list):
             go_forward(30, 0.4)
             while True:
                 led_list = track()
-                while led_list[3]:
+                if led_list[3]:
                     rightPointTurn(30, 0.5)
                 else:
                     return
