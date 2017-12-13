@@ -18,8 +18,6 @@ def avoid():
     왼쪽으로 포인트턴을 진행하여 장애물을 회피합니다.
     그리고 다시 라인을 따라 라인트레이싱을 진행합니다.
     '''
-
-
         try:
             LeftPwm.ChangeDutyCycle(0)
             RightPwm.ChangeDutyCycle(0)
